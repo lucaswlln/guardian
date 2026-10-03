@@ -1,21 +1,14 @@
 # Guardian
 
-A simple password manager, designed as academic project. The goal is to practice web development and become more familiar with cybersecurity concepts.
+## A simple password manager, designed as academic project. The goal is to practice web development and become more familiar with cybersecurity concepts.
 
-🛠️ Current Tecnologies:
-
+### Current Tecnologies:
 - HTML5
-
 - CSS3
-
 - JavaScript
 
-🚧 Status
+### Status: In development.
 
-In development.
+### License:
 
-📄 License
-
-This project is licensed under the MIT License.
-
-See the LICENSE file for more information.
+This project is licensed under the **MIT License**. See the LICENSE file for more information.
