@@ -12,3 +12,7 @@
 ### License:
 
 This project is licensed under the **MIT License**. See the LICENSE file for more information.
+
+### Project made by:
+- Lucas Willian
+- Jean Nickolas
