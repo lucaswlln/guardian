@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+}
+:root {
+    color-scheme: dark;
+    --bg: #050914;
+    --bg-sidebar: #0D1321;
+    --bg-right: #070b15;
+    --card: #0b1220;
+    --field: #050914;
+    --line: #1a2438;
+    --text: #f1f5f9;
+    --text-muted: #94A3B8;
+    --muted-2: #8391a8;
+    --cyan: #22d3ee;
+    --blue: #3b82f6;
+    --display: "Space Grotesk", "Inter", system-ui, sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+html, body {
+    margin: 0; min-height: 100%;
+    background: var(--bg); color: var(--text);
+    font-family: var(--body);
+}
+.container {
+    display: flex;
+}
+.titulos {
+    font-family: var(--display);
+    font-size: 20px;
+}
+.inputs{
+    background: var(--field);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    height: 25px;
+    width: 250px;
+    padding: 0px 12px;
+}
+.buttons{
+    background: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 8px;
+    height: 25px;
+    width: 120px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 40px rgba(59, 130, 246, .35);
+}
+.linhaVertical{
+    width: 1px;
+    height: 250px;
+    background: var(--line);
+}
+#sidebar {
+    width: 250px;
+    height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    justify-content: space-between;
+    padding: 0px 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--bg-sidebar);
+
+    border-right: 1px solid var(--line);
+}
+div#logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 80px;
+}
+div#logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+    box-shadow: 0 0 40px rgba(59, 130, 246, .35);
+}
+div#menu{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+button.botaoSelecionado {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #172554;
+    border: 1px solid #1D4ED8;
+    border-radius: 8px;
+    height: 40px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button.botaoSidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    height: 40px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+div#logout{
+    height: 80px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+#corpo {
+    background: var(--bg);
+    height: 100vh;
+    width: calc(100% - 250px);
+    margin-left: 250px;
+}
+#cabecalho{
+    border-bottom: 1px solid var(--line);
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+}
+div#blocos{
+    display: flex;
+    gap: 30px;
+}
+div#perfil{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+div#perfil img{
+    height: 200px;
+    width: 200px;
+}
+div#perfil div p#nomeUsuario{
+    font-size: 24px;
+    font-weight: bold;
+}
+div#perfil div p#trocarIMG{
+    color: var(--text-muted);
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+    width: fit-content;
+}
+div#info{
+    padding-left: 80px;
+}
+div#info form#formAlterarSenha{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px 20px;
+}
