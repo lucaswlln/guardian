@@ -36,12 +36,12 @@
     <p class="copy">© 2026 Guardian Security.</p>
   </section>
 
-  <section class="right">
+  <section class="right"> <!-- Parte direita da tela (o card de login) -->
     <div class="card">
       <h2>Bem vindo</h2>
       <p class="sub">Faça login para acessar o guardião de senhas</p>
 
-      <div id="login">
+      <form id="login">
         <label class="lbl" for="email">Email</label>
         <div class="field">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6" stroke-linecap="round"/></svg>
@@ -65,21 +65,23 @@
             <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
             Remember this device
           </label> -->
-          <a class="link" href="#">Esqueceu a senha?</a>
+          <a class="link" id="esqueceuSenha" href="#">Esqueceu a senha?</a>
         </div>
 
-        <button class="btn" type="button">
+        <button class="btn" type="submit">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          Access vault
+          Acessar Guardian
         </button>
 
         <p class="alt">Novo no Guardian? <a class="link" href="#">Crie uma conta</a></p>
-      </div>
+      </form>
     </div>
   </section>
 
 </div>
 
+<script src="../js/Login.js"></script>
+<script src="../config.js"></script>
 <script>
 var pw = document.getElementById('pw'); // pega o elemento INPUT com id "pw" e guarda na variável pw
 var eye = document.getElementById('eye'); // pega o elemento BUTTON com id "eye" e guarda na variável eye
