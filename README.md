@@ -6,6 +6,8 @@
 - HTML5
 - CSS3
 - JavaScript
+- Java
+- SQL
 
 ### Status: In development.
 
