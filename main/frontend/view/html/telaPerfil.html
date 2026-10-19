@@ -69,23 +69,37 @@
                 Edite suas informações de perfil
             </div>
 
-            <div id = "perfil">
+            <div class = "perfil">
                 <img src="../images/GuardianHero.png" alt="">
                 <div>
                     <p class="titulos" id="nomeUsuario">Nome do usuário Guardian</p>
-                    <p id="trocarIMG">
-                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.125 8.5C2.125 6.80924 2.79665 5.18774 3.99219 3.99219C5.18774 2.79665 6.80924 2.125 8.5 2.125C10.2822 2.1317 11.9928 2.82712 13.2742 4.06583L14.875 5.66667M11.3333 5.66667H14.875V2.125M14.875 8.5C14.875 10.1908 14.2033 11.8123 13.0078 13.0078C11.8123 14.2033 10.1908 14.875 8.5 14.875C6.7178 14.8683 5.00719 14.1729 3.72583 12.9342L2.125 11.3333M2.125 14.875V11.3333H5.66667" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
+                    <div>
+                        <button id="trocarIMG" type="button">
+                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.125 8.5C2.125 6.80924 2.79665 5.18774 3.99219 3.99219C5.18774 2.79665 6.80924 2.125 8.5 2.125C10.2822 2.1317 11.9928 2.82712 13.2742 4.06583L14.875 5.66667M11.3333 5.66667H14.875V2.125M14.875 8.5C14.875 10.1908 14.2033 11.8123 13.0078 13.0078C11.8123 14.2033 10.1908 14.875 8.5 14.875C6.7178 14.8683 5.00719 14.1729 3.72583 12.9342L2.125 11.3333M2.125 14.875V11.3333H5.66667" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Trocar avatar
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-                        Trocar avatar
-                    </p>
+
+            <div id="fundoModal" class="oculto">
+                <div class="painel-avatares" id="painelAvatares">
+                    <h3>Escolha seu avatar</h3>
+
+                    <div class="opcoes-avatares">
+                        <img src="../images/GuardianHero.png" alt="Avatar Homem" class="imgAvatar">
+                        <img src="../images/GuardianHeroF.png" alt="Avatar Mulher" class="imgAvatar">
+                        <img src="../images/GuardianRobot.png" alt="Avatar Robô" class="imgAvatar">
+                    </div>
                 </div>
             </div>
 
             <div id = blocos>
                 <div id = "info">
-                    <p>Email: (email do usuario)</p>
+                    <p id="emailUsuario">Email: (email do usuario)</p>
                     <p>Alterar Senha:</p>
                     <form action="" method="post" id="formAlterarSenha">
                         <input type="password" name="senhaAtual" class="inputs" placeholder="Senha atual">
@@ -98,12 +112,13 @@
                 <div class="linhaVertical"></div>
 
                 <div id="qtdSenhas">
-                    <p>Quantidade de senhas salvas: (quantidade)</p>
+                    <p id="qtdContas">Quantidade de contas salvas: (quantidade)</p>
                 </div>
             </div>
 
         </section>
 
     </div>
+    <script src="../js/telaPerfil.js"></script>
 </body>
 </html>
