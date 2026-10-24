@@ -109,4 +109,11 @@ public class UsuarioRepository {
 
         return contas;
     }
+
+    public boolean cadastrar(String email, String nome, String senhaHash){
+
+
+        return true;
+    }
+
 }

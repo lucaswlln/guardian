@@ -1,0 +1,354 @@
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #050a14;
+  --card: #0a111f;
+  --card-border: #1a2540;
+  --input-bg: #060b16;
+  --input-border: #1c2842;
+  --text: #eef3fb;
+  --muted: #8392ab;
+  --primary: #3b82f6;
+  --primary-hover: #4f91ff;
+  --accent: #22d3ee;
+  --danger: #f87171;
+  --ok: #34d399;
+
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Layout centralizado ---------- */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+}
+
+/* ---------- Card ---------- */
+.card {
+  width: 100%;
+  max-width: 520px;
+  padding: 40px 38px 34px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+}
+
+.card__title {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+}
+
+.card__subtitle {
+  margin: 0 0 28px;
+  color: var(--muted);
+}
+
+/* ---------- Campos ---------- */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #a9b6cc;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 16px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input:hover {
+  border-color: #2a3a5e;
+}
+
+.input:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
+}
+
+.input__icon {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-left: 18px;
+  color: var(--muted);
+}
+
+.input input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 16px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--text);
+  font: inherit;
+}
+
+.input input::placeholder {
+  color: #4a5873;
+}
+
+/* Evita o fundo claro do autofill */
+.input input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 100px var(--input-bg) inset;
+  caret-color: var(--text);
+}
+
+/* ---------- Botão de mostrar senha ---------- */
+.input__toggle {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin-right: 6px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.input__toggle:hover {
+  color: var(--text);
+}
+
+.input__toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+
+.input__toggle svg {
+  width: 22px;
+  height: 22px;
+}
+
+.input__toggle[aria-pressed="true"] {
+  color: var(--accent);
+}
+
+/* ---------- Mensagens e validação ---------- */
+.field__msg {
+  min-height: 0;
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+
+.field.is-invalid .field__msg {
+  margin-top: 8px;
+}
+
+.field.is-invalid .input {
+  border-color: var(--danger);
+}
+
+.field.is-invalid .input:focus-within {
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.2);
+}
+
+.field.is-valid .input {
+  border-color: rgba(52, 211, 153, 0.55);
+}
+
+/* ---------- Força da senha ---------- */
+.strength {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.strength span {
+  height: 4px;
+  border-radius: 4px;
+  background: #16213a;
+  transition: background 0.2s;
+}
+
+.strength[data-level="1"] span:nth-child(-n+1) {
+  background: var(--danger);
+}
+
+.strength[data-level="2"] span:nth-child(-n+2) {
+  background: #fbbf24;
+}
+
+.strength[data-level="3"] span:nth-child(-n+3) {
+  background: var(--primary);
+}
+
+.strength[data-level="4"] span:nth-child(-n+4) {
+  background: var(--ok);
+}
+
+/* ---------- Aviso de segurança ---------- */
+.notice {
+  margin: 4px 0 24px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--accent);
+  background: rgba(34, 211, 238, 0.05);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* ---------- Botão de cadastro ---------- */
+.btn {
+  width: 100%;
+  min-height: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--primary);
+  border: 0;
+  border-radius: 16px;
+  color: #fff;
+  font: 600 1.1rem/1 var(--font-body);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.28);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+}
+
+.btn svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.2;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btn[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* ---------- Rodapé do formulário ---------- */
+.card__footer {
+  margin: 24px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.card__footer a,
+.card__footer a:visited {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.card__footer a:hover {
+  text-decoration: underline;
+}
+
+.card__footer a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Responsividade ---------- */
+@media (max-width: 600px) {
+  .page {
+    padding: 20px 14px;
+  }
+
+  .card {
+    padding: 30px 22px 26px;
+    border-radius: 22px;
+  }
+
+  .card__title {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 26px 16px 22px;
+  }
+
+  .input__icon {
+    margin-left: 12px;
+  }
+
+  .input input {
+    padding: 0 10px;
+  }
+}
+
+/* ---------- Acessibilidade ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}

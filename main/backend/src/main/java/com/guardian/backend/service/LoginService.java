@@ -13,8 +13,8 @@ public class LoginService {
 
     private final UsuarioRepository usuarioRepository;
 
-    public LoginService(UsuarioRepository UsuarioRepository) {
-        this.usuarioRepository = UsuarioRepository;
+    public LoginService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     public boolean login(String email, String senha, HttpSession session) {
