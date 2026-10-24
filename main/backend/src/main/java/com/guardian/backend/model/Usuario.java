@@ -1,18 +1,40 @@
 package com.guardian.backend.model;
 
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+
+    @Id
     private String email;
+
+    @Column(name = "nome")
     private String nome;
-    private int qtdSenhas;
+
+    @Enumerated(EnumType.STRING)
     private EnumAvatar avatar;
 
-    public Usuario(String email, String nome, int qtdSenhas, EnumAvatar avatar) {
-        this.email = email;
-        this.nome = nome;
-        this.qtdSenhas = qtdSenhas;
-        this.avatar = avatar;
+    @OneToMany(mappedBy = "usuario")
+    private List<Conta> contas;
+
+    @Column(name = "senha_hash", nullable = false)
+    private String senhaHash;
+
+
+    public Usuario() {
+        this.avatar = EnumAvatar.valueOf("GUARDIAN_HERO");
     }
 
+    
     public String getEmail() {
         return email;
     }
@@ -29,19 +51,6 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public int getQtdSenhas() {
-        return qtdSenhas;
-    }
-
-    public void setQtdSenhas(int qtdSenhas) {
-        if (qtdSenhas < 0) {
-            throw new IllegalArgumentException(
-                "A quantidade de senhas não pode ser negativa."
-            );
-        }
-        this.qtdSenhas = qtdSenhas;
-    }
-
     public EnumAvatar getAvatar() {
         return avatar;
     }
@@ -51,5 +60,21 @@ public class Usuario {
             throw new IllegalArgumentException("O avatar não pode ser nulo.");
         }
         this.avatar = avatar;
+    }
+
+    public List<Conta> getContas(){
+        return this.contas;
+    }
+
+    public void setContas(List<Conta> contas){
+        this.contas = contas;
+    }
+
+    public String getSenhaHash() {
+        return senhaHash;
+    }
+
+    public void setSenhaHash(String senhaHash) {
+        this.senhaHash = senhaHash;
     }
 }

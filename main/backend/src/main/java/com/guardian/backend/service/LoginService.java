@@ -1,26 +1,44 @@
 package com.guardian.backend.service;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
-import com.guardian.backend.repository.LoginRepository;
+import com.guardian.backend.model.Usuario;
+import com.guardian.backend.repository.UsuarioRepository;
 
+import jakarta.servlet.http.HttpSession;
+
+@Service
 public class LoginService {
 
-    public boolean login(String email, String senha) {
+    private final UsuarioRepository usuarioRepository;
 
-        // pega email, se for null -> false
-        String emailValido = LoginRepository.getEmail(email);
-        if(emailValido == null){
+    public LoginService(UsuarioRepository UsuarioRepository) {
+        this.usuarioRepository = UsuarioRepository;
+    }
+
+    public boolean login(String email, String senha, HttpSession session) {
+
+        Usuario usuario = usuarioRepository.getUsuarioByEmail(email);
+
+        if (usuario == null) {
             return false;
         }
 
-        // compara se a senha atrelada ao email corresponde
-        return BCrypt.checkpw(senha, LoginRepository.getSenha(email));
+        String emailValido = usuario.getEmail();
+
+        String senhaHash = usuario.getSenhaHash();
+
+        if (senhaHash == null || !BCrypt.checkpw(senha, senhaHash)) {
+            return false;
+        }
+
+        session.setAttribute("emailUsuario", emailValido);
+
+        return true;
     }
 
     public String gerarHash(String senha) {
         return BCrypt.hashpw(senha, BCrypt.gensalt());
     }
-
-
 }
