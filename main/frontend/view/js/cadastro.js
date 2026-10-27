@@ -1,3 +1,5 @@
+import { GUARDIAN_URL } from "../config.js";
+
 (() => {
   const form = document.getElementById("signup-form");
   const fields = {
@@ -100,7 +102,7 @@
     const submit = form.querySelector(".btn");
     submit.disabled = true;
 
-    // TODO: enviar para o back-end. Nunca envie a senha em texto puro sem HTTPS.
+    // TODO: enviar para o back-end. Nunca enviar a senha em texto puro sem HTTPS.
     const payload = {
       email: fields.email.value.trim(),
       username: fields.username.value.trim(),
@@ -110,25 +112,30 @@
 
     submit.disabled = false;
 
-    fetch("${GUARDIAN_URL}/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+    fetch(`${GUARDIAN_URL}/cadastrar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
     })
-    .then(response => {
+      .then(response => {
         if (!response.ok) {
-            throw new Error("Erro ao cadastrar usuário");
+          throw new Error("Erro ao cadastrar usuário");
         }
-
-        return response.json();
-    })
-    .then(data => {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          return response.json();
+        }
+        return response.text();
+      })
+      .then(data => {
         console.log("Cadastro realizado:", data);
-    })
-    .catch(error => {
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "login.html";
+      })
+      .catch(error => {
         console.error("Erro na requisição:", error);
-    });
+      });
   });
-});
+})();

@@ -12,18 +12,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.guardian.backend.model.Conta;
 import com.guardian.backend.model.EnumAvatar;
-import com.guardian.backend.model.EnumPlataforma;
 import com.guardian.backend.model.Usuario;
 
 @Repository
 public class UsuarioRepository {
+    private final ContaRepository contaRepository;
+
+    public UsuarioRepository(ContaRepository contaRepository) {
+        this.contaRepository = contaRepository;
+    }
 
     public Usuario getUsuarioByEmail(String email) {
         String sql = "SELECT * FROM usuarios WHERE email = ?";
@@ -54,7 +55,7 @@ public class UsuarioRepository {
 
                 // Busca as contas vinculadas ao usuário
                 usuario.setContas(
-                    getContasByEmail(conexao, email)
+                    contaRepository.getContasByEmail(conexao, usuario)
                 );
 
                 return usuario;
@@ -65,55 +66,24 @@ public class UsuarioRepository {
         }
     }
 
-    private List<Conta> getContasByEmail(
-        Connection conexao, String email
-    ) throws SQLException {
-
-        String sql = "SELECT * FROM contas WHERE contas_email = ?";
-        List<Conta> contas = new ArrayList<>();
-
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-
-            stmt.setString(1, email);
-
-            try (ResultSet resultado = stmt.executeQuery()) {
-
-                while (resultado.next()) {
-                    Conta conta = new Conta();
-
-                    conta.setId(resultado.getInt("id"));
-
-                    conta.setLogin_conta(
-                        resultado.getString("login_conta")
-                    );
-
-                    conta.setSenha(
-                        resultado.getString("senha")
-                    );
-
-                    String plataforma =
-                        resultado.getString("plataforma");
-
-                    if (plataforma != null) {
-                        conta.setPlataforma(
-                            EnumPlataforma.valueOf(plataforma)
-                        );
-                    }
-
-                    conta.setUsuario(email);
-
-                    contas.add(conta);
-                }
-            }
-        }
-
-        return contas;
-    }
-
     public boolean cadastrar(String email, String nome, String senhaHash){
 
+        String sql = "INSERT INTO usuarios (email, nome, senha_hash) VALUES (?, ?, ?)";
 
-        return true;
+        try (
+            Connection conexao = Connect.getConnection();
+            PreparedStatement stmt = conexao.prepareStatement(sql)
+        ){
+            stmt.setString(1, email);
+            stmt.setString(2, nome);
+            stmt.setString(3, senhaHash);
+
+            return stmt.executeUpdate() == 1;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

@@ -2,12 +2,12 @@ package com.guardian.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
-
 
 @Entity
 @Table(name = "contas")
@@ -18,7 +18,7 @@ public class Conta {
 
     @ManyToOne
     @JoinColumn(name = "usuario_email", referencedColumnName = "email")
-    private String usuario_email;
+    private Usuario usuario;
 
     @Column(name = "login_conta")
     private String login_conta;
@@ -26,6 +26,7 @@ public class Conta {
     @Column(name = "senha")
     private String senha;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "plataforma")
     private EnumPlataforma plataforma;
 
@@ -37,19 +38,19 @@ public class Conta {
         this.id = id;
     }
 
-    public String getUsuario() {
-        return usuario_email;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuario(String usuario_email) {
-        this.usuario_email = usuario_email;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public String getLogin_conta() {
+    public String getLoginConta() {
         return login_conta;
     }
 
-    public void setLogin_conta(String login_conta) {
+    public void setLoginConta(String login_conta) {
         this.login_conta = login_conta;
     }
 
