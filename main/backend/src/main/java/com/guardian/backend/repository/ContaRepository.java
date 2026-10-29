@@ -15,7 +15,6 @@ import com.guardian.backend.model.Usuario;
 
 @Repository
 public class ContaRepository {
-
     public boolean cadastrarConta(
         String usuarioEmail, String loginConta, String senhaHash, String plataforma
     ) {
@@ -23,7 +22,7 @@ public class ContaRepository {
             || senhaHash == null || senhaHash.isBlank()
             || plataforma == null) {
                 return false;
-    }
+        }
         String sql = "INSERT INTO contas (usuario_email, login_conta, senha, plataforma) VALUES (?, ?, ?, ?)";
         try(
             Connection conexao = Connect.getConnection();
@@ -37,19 +36,54 @@ public class ContaRepository {
             stmt.executeUpdate();
         
         } catch (SQLException e){
-            throw new RuntimeException("Erro ao cadastrar conta.", e);
+            throw new RuntimeException("Repository: Erro ao cadastrar conta.", e);
         }
 
         return true;
     }
 
-    // public boolean removerConta(){
+    public boolean removerConta(int idConta){
+        String sql = "DELETE FROM contas WHERE id = ?";
 
-    // }
+        try(
+            Connection conexao = Connect.getConnection();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+        ) {
+            stmt.setString(1, String.valueOf(idConta));
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException("Repository: Erro ao excluir conta");
+        }
+        return true;
+    }
 
-    // public boolean atualizarConta(){
+    public boolean atualizarConta(
+        int idConta, String loginConta, String senhaHash, String plataforma, String emailUsuario
+    ){
+        if (loginConta == null || loginConta.isBlank()
+            || senhaHash == null || senhaHash.isBlank()
+            || plataforma == null) {
+                return false;
+        }
+        String sql = "UPDATE contas SET login_conta = ?, senha = ?, plataforma = ? WHERE id = ? AND usuario_email = ?;";
+        try(
+            Connection conexao = Connect.getConnection();
+            PreparedStatement stmt = conexao.prepareStatement(sql)
+        ){
+            stmt.setString(1, loginConta);
+            stmt.setString(2, senhaHash);
+            stmt.setString(3, plataforma);
+            stmt.setString(4, String.valueOf(idConta));
+            stmt.setString(4, emailUsuario);
 
-    // }
+            stmt.executeUpdate();
+        
+        } catch (SQLException e){
+            throw new RuntimeException("Repository: Erro ao atualizar conta.", e);
+        }
+
+        return true;
+    }
 
     public List<Conta> getContasByEmail(
         Connection conexao, Usuario usuario

@@ -86,4 +86,44 @@ public class UsuarioRepository {
         }
     }
 
+    public boolean redefinePW(String email, String novaSenhaHash){
+
+        String sql = "UPDATE usuarios SET senha_hash = ? WHERE email = ?";
+
+        try(
+            Connection conexao = Connect.getConnection();
+            PreparedStatement stmt = conexao.prepareStatement(sql)
+        ){
+            stmt.setString(1, novaSenhaHash);
+            stmt.setString(2, email);
+
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            throw new RuntimeException("Repository: não foi possível redefinir a senha");
+        }
+        return true;
+    }
+
+
+    public boolean trocarAvatar(String emailUsuario, EnumAvatar avatarSelecionado) {
+
+        String sql = "UPDATE usuarios SET avatar = ? WHERE email = ?";
+
+        try (
+            Connection conexao = Connect.getConnection();
+            PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+            stmt.setString(1, avatarSelecionado.name());
+            stmt.setString(2, emailUsuario);
+
+            return stmt.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                "Repository: não foi possível trocar o avatar",
+                e
+            );
+        }
+    }
 }

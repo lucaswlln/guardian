@@ -1,9 +1,11 @@
+
 package com.guardian.backend.model;
 
 public class InfoPerfil {
     private String nomeUsuario;
     private String emailUsuario;
     private int qtdContasUsuario;
+    private EnumAvatar avatar;
 
     public String getNomeUsuario() {
         return nomeUsuario;
@@ -27,5 +29,13 @@ public class InfoPerfil {
 
     public void setQtdContasUsuario(int qtdContasUsuario) {
         this.qtdContasUsuario = qtdContasUsuario;
+    }
+
+    public EnumAvatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(EnumAvatar avatar) {
+        this.avatar = avatar;
     }
 }
